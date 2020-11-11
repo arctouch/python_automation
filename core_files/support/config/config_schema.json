@@ -1,0 +1,382 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "AppConfiguration": {
+                "android": {
+                    "app": "/resources/apps/android_sample.apk",
+                    "automationName": "UIAutomator2",
+                    "appPackage": "com.swaglabsmobileapp",
+                    "appWaitActivity": "com.swaglabsmobileapp.MainActivity"
+                },
+                "ios": {
+                    "app": "/resources/apps/ios_sample_real.ipa",
+                    "automationName": "XCUITest",
+                    "xcodeOrgId": "5HMJW6N276",
+                    "xcodeSigningId": "iPhone Developer",
+                    "bundleIdentifier": "org.reactjs.native.example.SwagLabsMobileApp"
+                },
+                "web": {
+                    "address": "http://www.google.com",
+                    "headless": true
+                },
+                "web-mobile": {
+                    "address": "http://www.google.com",
+                }
+            },
+            "Appium": {
+                "port": 4273,
+                "systemPort": 8200
+            },
+            "MockServer": {
+                "host": "127.0.0.1",
+                "port": 8082,
+                "forwardRequests": true,
+                "recordResponses": true,
+                "missingVariantFallback": false,
+                "forwardToServer": "https://sample-server.com"
+            }
+        }
+    ],
+    "required": [
+        "AppConfiguration"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "AppConfiguration": {
+            "$id": "#/properties/AppConfiguration",
+            "type": "object",
+            "title": "The AppConfiguration schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "android": {
+                        "appPackage": "com.arctouch.a3m_filtrete_android",
+                        "appWaitActivity": ".feature.onboarding.OnboardingActivity",
+                        "app": "/resources/apps/Filtrete.apk",
+                        "address": "www.google.com",
+                        "automationName": "UIAutomator2"
+                    },
+                    "ios": {
+                        "app": "/resources/apps/ios_sample_real.ipa",
+                        "automationName": "XCUITest",
+                        "xcodeOrgId": "5HMJW6N276",
+                        "xcodeSigningId": "iPhone Developer",
+                        "bundleIdentifier": "org.reactjs.native.example.SwagLabsMobileApp",
+                        "address": "www.google.com"
+                    },
+                    "web": {
+                        "address": "www.google.com",
+                        "headless": true
+                    },
+                    "web-mobile": {
+                        "address": "www.google.com"
+                    }
+                }
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "android": {
+                    "$id": "#/properties/AppConfiguration/properties/android",
+                    "type": "object",
+                    "title": "The android application Schema",
+                    "description": "Configuration requried to run an android app automation.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "app": "/resources/apps/android_sample.apk",
+                            "automationName": "UIAutomator2",
+                            "appPackage": "com.swaglabsmobileapp",
+                            "appWaitActivity": "com.swaglabsmobileapp.MainActivity"
+                        }
+                    ],
+                    "required": [
+                        "automationName",
+                        "appPackage",
+                        "appWaitActivity"
+                    ],
+                    "additionalProperties": true,
+                    "properties": {
+                        "app": {
+                            "$id": "#/properties/AppConfiguration/properties/android/properties/app",
+                            "type": "string",
+                            "title": "The app Schema",
+                            "description": "Path to the app in the file system",
+                            "default": "",
+                            "examples": [
+                                "/resources/apps/android_sample.apk"
+                            ]
+                        },
+                        "automationName": {
+                            "$id": "#/properties/AppConfiguration/properties/android/properties/automationName",
+                            "type": "string",
+                            "title": "The automationName schema",
+                            "description": "Automation framework to be used by appium under the hood.",
+                            "default": "",
+                            "examples": [
+                                "UIAutomator2"
+                            ]
+                        },
+                        "appPackage": {
+                            "$id": "#/properties/AppConfiguration/properties/android/properties/appPackage",
+                            "type": "string",
+                            "title": "The appPackage schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "com.swaglabsmobileapp"
+                            ]
+                        },
+                        "appWaitActivity": {
+                            "$id": "#/properties/AppConfiguration/properties/android/properties/appWaitActivity",
+                            "type": "string",
+                            "title": "The appWaitActivity schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "com.swaglabsmobileapp.MainActivity"
+                            ]
+                        }
+                    }
+                },
+                "ios": {
+                    "$id": "#/properties/AppConfiguration/properties/ios",
+                    "type": "object",
+                    "title": "The ios schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "app": "/resources/apps/ios_sample_real.ipa",
+                            "automationName": "XCUITest",
+                            "xcodeOrgId": "5HMJW6N276",
+                            "xcodeSigningId": "iPhone Developer",
+                            "bundleIdentifier": "org.reactjs.native.example.SwagLabsMobileApp"
+                        }
+                    ],
+                    "required": [
+                        "automationName",
+                        "xcodeOrgId",
+                        "xcodeSigningId",
+                        "bundleIdentifier"
+                    ],
+                    "additionalProperties": true,
+                    "properties": {
+                        "app": {
+                            "$id": "#/properties/AppConfiguration/properties/ios/properties/app",
+                            "type": "string",
+                            "title": "The app schema",
+                            "description": "Path the iOS app on the file system (from project root)",
+                            "default": "",
+                            "examples": [
+                                "/resources/apps/ios_sample_real.ipa"
+                            ]
+                        },
+                        "automationName": {
+                            "$id": "#/properties/AppConfiguration/properties/ios/properties/automationName",
+                            "type": "string",
+                            "title": "The automationName schema",
+                            "description": "Automation framework to be used by appium under the hood.",
+                            "default": "",
+                            "examples": [
+                                "XCUITest"
+                            ]
+                        },
+                        "xcodeOrgId": {
+                            "$id": "#/properties/AppConfiguration/properties/ios/properties/xcodeOrgId",
+                            "type": "string",
+                            "title": "The xcodeOrgId schema",
+                            "description": "The team ID used to compile the app.",
+                            "default": "",
+                            "examples": [
+                                "5HMJW6N276"
+                            ]
+                        },
+                        "xcodeSigningId": {
+                            "$id": "#/properties/AppConfiguration/properties/ios/properties/xcodeSigningId",
+                            "type": "string",
+                            "title": "The xcodeSigningId schema",
+                            "description": "The name of the provisioning profile used to compile the app.",
+                            "default": "",
+                            "examples": [
+                                "iPhone Developer"
+                            ]
+                        },
+                        "bundleIdentifier": {
+                            "$id": "#/properties/AppConfiguration/properties/ios/properties/bundleIdentifier",
+                            "type": "string",
+                            "title": "The bundleIdentifier schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "org.reactjs.native.example.SwagLabsMobileApp"
+                            ]
+                        }
+                    }
+                },
+                "web": {
+                    "$id": "#/properties/AppConfiguration/properties/web",
+                    "type": "object",
+                    "title": "The web application Schema",
+                    "description": "Configuration requried to run an android app automation.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "address": "www.google.com",
+                            "headless": true
+                        }
+                    ],
+                    "required": [
+                        "address",
+                        "headless"
+                    ],
+                    "properties": {
+                        "address": {
+                            "$id": "#/properties/AppConfiguration/properties/web/properties/address",
+                            "type": "string",
+                            "title": "Website URL",
+                            "description": "Path to the app in the file system",
+                            "default": "",
+                            "examples": [
+                                "www.google.com"
+                            ]
+                        },
+                        "headless": {
+                            "$id": "#/properties/AppConfiguration/properties/web/properties/headless",
+                            "type": "boolean",
+                            "title": "Use Headless Browser",
+                            "description": "true/false",
+                            "default": true,
+                            "examples": [
+                                false
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "Appium": {
+            "$id": "#/properties/Appium",
+            "type": "object",
+            "title": "The Appium schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "port": 4273,
+                    "systemPort": 8200
+                }
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "port": {
+                    "$id": "#/properties/Appium/properties/port",
+                    "type": "integer",
+                    "title": "The port schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        4273
+                    ]
+                },
+                "systemPort": {
+                    "$id": "#/properties/Appium/properties/systemPort",
+                    "type": "integer",
+                    "title": "The systemPort schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        8200
+                    ]
+                }
+            }
+        },
+        "MockServer": {
+            "$id": "#/properties/MockServer",
+            "type": "object",
+            "title": "The MockServer schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "host": "127.0.0.1",
+                    "port": 8082,
+                    "forwardRequests": false,
+                    "recordResponses": false,
+                    "missingVariantFallback": false,
+                    "forwardToServer": "https://sample-server.com"
+                }
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "host": {
+                    "$id": "#/properties/MockServer/properties/host",
+                    "type": "string",
+                    "title": "The host schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "127.0.0.1",
+                    "examples": [
+                        "127.0.0.1"
+                    ]
+                },
+                "port": {
+                    "$id": "#/properties/MockServer/properties/port",
+                    "type": "integer",
+                    "title": "The port schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 8082,
+                    "examples": [
+                        8082
+                    ]
+                },
+                "forwardRequests": {
+                    "$id": "#/properties/MockServer/properties/forwardRequests",
+                    "type": "boolean",
+                    "title": "The forwardRequests schema",
+                    "description": "If `true` any response not found in the file system will be forwarded to the address provided in `forwardToServer`. This parameter will be ignored if `forwardToServer` is not set.",
+                    "default": false,
+                    "examples": [
+                        true
+                    ]
+                },
+                "recordResponses": {
+                    "$id": "#/properties/MockServer/properties/recordResponses",
+                    "type": "boolean",
+                    "title": "The recordResponses schema",
+                    "description": "Persists responses from forwarded requests. Saved response will be served to subsequent requests. \n\nThis parameter will be ignored if `forwardRequests` set to `false` or `forwardToServer` is not set",
+                    "default": false,
+                    "examples": [
+                        true
+                    ]
+                },
+                "missingVariantFallback": {
+                    "$id": "#/properties/MockServer/properties/missingVariantFallback",
+                    "type": "boolean",
+                    "title": "The missingVariantFallback schema",
+                    "description": "If set to `true`, when response is not found for the active variant, a default response (with no variant associated) might be served instead if available.",
+                    "default": false,
+                    "examples": [
+                        true,
+                        false
+                    ]
+                },
+                "forwardToServer": {
+                    "$id": "#/properties/MockServer/properties/forwardToServer",
+                    "type": "string",
+                    "title": "The forwardToServer schema",
+                    "description": "Address of the server to which to forward requests if response is not found locally.",
+                    "default": "https://sample-server.com",
+                    "examples": [
+                        "https://sample-server.com"
+                    ]
+                }
+            }
+        }
+    }
+}

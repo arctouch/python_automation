@@ -1,0 +1,100 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Mock Server",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "support/server_mock/server_mock.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1",
+                "MOCK_MISSING_VARIANT_FALLBACK": "1",
+                "MOCK_FORWARD_REQUESTS": "1",
+                "MOCK_RECORD_RESPONSES": "1",
+                "MOCK_FORWARD_TO_SERVER": "http://example.com"
+            },
+            "args": [
+                "run",
+                "--host=127.0.0.1",
+                "--port=8082"
+            ],
+        },
+        {
+            "name": "Generate Devices Config",
+            "type": "python",
+            "request": "launch",
+            "program": "support/generator/generate_devices_config.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Paver",
+            "type": "python",
+            "request": "launch",
+            "module": "paver",
+            "args": [
+                "run",
+                "iPhone 11",
+                "iPhone X"
+            ]
+        },
+        {
+            "name": "iPhone 11",
+            "type": "python",
+            "request": "launch",
+            "module": "behave",
+            "args": [
+                "-D",
+                "device=iPhone 11",
+                "--junit",
+                "--junit-directory",
+                "junit/reports/iPhone 11"
+            ]
+        },
+        {
+            "name": "iPhone 11 - Web",
+            "type": "python",
+            "request": "launch",
+            "module": "behave",
+            "args": [
+                "-D",
+                "device=iPhone 11",
+                "-D",
+                "platform=web",
+                "--junit",
+                "--junit-directory",
+                "junit/reports/iPhone 11 - Web"
+            ]
+        },
+        {
+            "name": "Web",
+            "type": "python",
+            "request": "launch",
+            "module": "behave",
+            "args": [
+                "-D",
+                "platform=web",
+                "-D",
+                "device=chrome-mac",
+                "--junit",
+                "--junit-directory",
+                "junit/reports/iPhone 11 - Web"
+            ]
+        },
+        {
+            "name": "iPhone 11 (@wip)",
+            "type": "python",
+            "request": "launch",
+            "module": "behave",
+            "args": [
+                "-w",
+                "-D",
+                "device=iPhone 11"
+            ]
+        },
+    ]
+}

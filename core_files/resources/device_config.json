@@ -1,0 +1,48 @@
+{
+  "devices": [
+    {
+      "name": "personal-real",
+      "deviceName": "0047503804",
+      "platformName": "android",
+      "udid": "0047503804",
+      "automationName": "UIAutomator2",
+      "platformVersion": "9",
+      "browserName": "Chrome"
+    },
+    {
+      "name": "PAP302-real",
+      "deviceName": "PAP302",
+      "platformName": "ios",
+      "udid": "00008020-0011515C369A002E",
+      "automationName": "XCUITest",
+      "platformVersion": "12.0",
+      "browserName": "Safari"
+    },
+    {
+      "name": "chrome-mac",
+      "platformName": "web",
+      "browserName": "chrome",
+      "version": "83.0"
+    },
+    {
+      "name": "firefox-mac",
+      "platformName": "web",
+      "browserName": "firefox",
+      "version": "83.0"
+    },
+    {
+      "name": "safari",
+      "platformName": "web",
+      "browserName": "safari",
+      "version": "83.0"
+    },
+    {
+      "name": "iphone11promax-simulator",
+      "deviceName": "iPhone11ProMax",
+      "udid": "01DF9F17-AA5E-4C7C-B3F4-69482C6537C4",
+      "platformName": "ios",
+      "automationName": "XCUITest",
+      "platformVersion": "13.5"
+    }
+  ]
+}
