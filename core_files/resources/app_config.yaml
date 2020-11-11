@@ -1,0 +1,32 @@
+AppConfiguration:
+  android:
+    app: /resources/apps/android_sample.apk
+    automationName: UIAutomator2
+    appPackage: com.swaglabsmobileapp
+    appWaitActivity: com.swaglabsmobileapp.MainActivity
+
+  ios:
+    app: /resources/apps/ios_sample.app
+    automationName: XCUITest
+    xcodeOrgId: 5HMJW6N276
+    xcodeSigningId: iPhone Developer
+    bundleIdentifier: org.reactjs.native.example.SwagLabsMobileApp
+
+  web:
+    address: https://www.google.com
+    headless: true
+
+  web-mobile:
+    address: https://www.google.com
+
+Appium:
+  port: 4273
+  systemPort: 8200
+
+MockServer:
+  host: 127.0.0.1
+  port: 8082
+  forwardRequests: false
+  recordResponses: false
+  missingVariantFallback: false
+  forwardToServer: https://sample-server.com

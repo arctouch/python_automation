@@ -1,0 +1,46 @@
+{
+    "cucumberautocomplete.steps": [
+        "features/steps/*.py"
+    ],
+    "cucumberautocomplete.syncfeatures": "features/*feature",
+    "cucumberautocomplete.strictGherkinCompletion": false,
+    "cucumberautocomplete.strictGherkinValidation": false,
+    "cucumberautocomplete.customParameters": [
+        {
+            "parameter": "{ab}",
+            "value": "(a|b)"
+        },
+        {
+            "parameter": "\".*\"",
+            "value": "\".*\""
+        },
+        {
+            "parameter": "/\\{a.*\\}/",
+            "value": "a"
+        },
+    ],
+    "cucumberautocomplete.gherkinDefinitionPart": "@(given|when|then|step)\\(",
+    "yaml.schemas": {
+        "support/config/config_schema.json": "app_config.yaml"
+    },
+    "python.venvFolders": [
+        "automation_virtualenv"
+    ],
+    "python.pythonPath": "automation_virtualenv/bin/python",
+    "rest-client.previewOption": "full",
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "version": "v1"
+        },
+        "localhost": {
+            "host": "http://127.0.0.1:8082"
+        },
+        "sandbox": {
+            "host": "http://0.0.0.0:999"
+        }
+    },
+    "files.trimTrailingWhitespace": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120"
+    ]
+}

@@ -1,0 +1,9 @@
+node_modules
+__pycache__
+.DS_Store
+package-lock.json
+/core_files/reports
+logs/*
+allure/results/*
+reports/*
+.mypy_cache
