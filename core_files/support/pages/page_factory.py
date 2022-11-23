@@ -26,4 +26,7 @@ def get_page_by_name(context, page_name):
     no_spaces_name = page_name.replace(" ", "")
     page_type_name = "{name}Page".format(name=no_spaces_name)
 
-    return PAGES_BY_NAME[page_type_name](context)
+    if page_type_name in PAGES_BY_NAME:
+        return PAGES_BY_NAME[page_type_name](context)
+    else:
+        raise Exception('There is no Page Object class implemented for {}.'.format(page_type_name))

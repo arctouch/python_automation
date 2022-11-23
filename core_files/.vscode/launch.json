@@ -96,5 +96,21 @@
                 "device=iPhone 11"
             ]
         },
+        {
+            "name": "iOS - SauceLabs",
+            "type": "python",
+            "request": "launch",
+            "module": "behave",
+            "console": "integratedTerminal",
+            "env": {
+                "TASK_ID": "1",
+                "SAUCE_LABS": "True"
+            },
+            "args": [
+                "./features/Login.feature",
+                "-D",
+                "device=AnyiPhone11"
+            ],
+        }
     ]
 }

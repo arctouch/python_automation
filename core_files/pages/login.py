@@ -37,7 +37,7 @@ class LoginPage(BasePage):
         name='Login',
         ios_query=(AppiumBy.ID, 'test-LOGIN'),
         android_query=(AppiumBy.ACCESSIBILITY_ID, 'test-LOGIN'),
-        web_query=(SeleniumBy.XPATH, '/html/body/div[2]/header')
+        web_query=(SeleniumBy.XPATH, '//img[@alt="Google"]')
     )
 
     USERNAME_INPUT = Element.input(

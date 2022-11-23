@@ -17,6 +17,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 # SOFTWARE.
-from .server_mock import app
+from .mock_server import MockServerRequestHandler
 
-__all__ = ['app']
+__all__ = ['MockServerRequestHandler']

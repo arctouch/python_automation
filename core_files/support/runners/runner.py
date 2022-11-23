@@ -18,6 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 # SOFTWARE.
 
+from distutils import util
+import os
+
+
 class RunnerBase:
     def __init__(self, device_info, app_info, system_capabilities):
         caps = {}
@@ -36,6 +40,8 @@ class RunnerBase:
         self._app_info = app_info
         self._device_info = device_info
         self._driver = None
+        self._is_sauce_labs = True if bool(util.strtobool(os.environ['SAUCE_LABS'])) else False
+
 
     @property
     def driver(self):

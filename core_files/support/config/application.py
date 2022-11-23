@@ -17,19 +17,26 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 # SOFTWARE.
+from distutils import util
 import os
 import yaml
+from envyaml import EnvYAML
 
 _PROJECT_ROOT = os.path.abspath(os.getcwd())
 _DEFAULT_CONFIG_PATH = _PROJECT_ROOT + "/resources/app_config.yaml"
+_SAUCE_LABS = True if bool(util.strtobool(os.environ['SAUCE_LABS'])) else False
 
 with open(_DEFAULT_CONFIG_PATH) as config:
-    _CONFIG_INFO = yaml.load(config, Loader=yaml.FullLoader)
+    _CONFIG_INFO = EnvYAML(_DEFAULT_CONFIG_PATH)
     _APP_CONFIG = _CONFIG_INFO['AppConfiguration']
     for platform in _APP_CONFIG:
         if 'app' in _APP_CONFIG[platform]:
-            _APP_CONFIG[platform]["app"] = _PROJECT_ROOT + str(_APP_CONFIG[platform]["app"])
+            if _SAUCE_LABS:
+                _APP_CONFIG[platform]["app"] = 'storage:filename={}'.format(str(_APP_CONFIG[platform]["app"]))
+            else:
+                _APP_CONFIG[platform]["app"] = _PROJECT_ROOT + '/resources/apps/' + str(_APP_CONFIG[platform]["app"])
 
+print(_CONFIG_INFO.get('Appium'))
 APPLICATION_CONFIG = _CONFIG_INFO['AppConfiguration']
 APPIUM_CONFIG = _CONFIG_INFO.get('Appium')
 MOCK_SERVER_CONFIG = _CONFIG_INFO.get('MockServer')

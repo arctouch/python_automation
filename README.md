@@ -16,8 +16,7 @@ The framework consists in:
 
 * [Behave](https://github.com/behave/behave): Cucumber implementation in python;
 * [Selenium](https://selenium-python.readthedocs.io/): Run Automation for web applications;
-* [Appium](http://appium.io/docs/en/about-appium/api/): Run Automation for web/mobile native applications;
-* [Flask](https://flask.palletsprojects.com/en/1.1.x/): Mock server solution.
+* [Appium](http://appium.io/docs/en/about-appium/api/): Run Automation for web/mobile native applications.
 
 # Table of Contents
 
@@ -26,11 +25,14 @@ The framework consists in:
 * [Table of Contents](#table-of-contents)
 * [Installation](#installation)
     * [Environment Setup](#environment-setup)
-    * [Manually](#manually)
+    * [Automatic Installation](#automatic-installation)
+    * [Quickstart Installation](#quickstart-installation)
+    * [Detailed Installation](#detailed-installation)
 * [Tech Details](#tech-details)
     * [Pages](#pages)
     * [Locators](#locators)
-    * [Run Automation](#run-automation)
+    * [Run Automation Locally](#run-automation-locally)
+    * [Run Automation on SauceLabs](#run-automation-on-saucelabs)
     * [Continuous Integration](#continuous-integration)
         * [Jenkins Integration Example](#jenkins-integration-example)
     * [Mock Server](#mock-server)
@@ -42,6 +44,7 @@ The framework consists in:
     * [Creating a new Page](#creating-a-new-page)
 * [Appendix](#appendix)
     * [Element Inspection](#element-inspection)
+    * [SauceLabs Build Uploader](#saucelabs-build-uploader)
 <!--te-->
 
 # Installation
@@ -62,7 +65,119 @@ If you do not have it installed, you can download it from AppStore or [developer
 
 If you do not have it installed, you can download it from [developer.android.com](https://developer.android.com/studio)
 
-## Manually
+Don't forget to add the ANDROID_HOME environment variable:
+
+For bash:
+
+```$ nano ~/.bash_profile```
+
+For zsh:
+
+```$ nano ~/.zshenv```
+
+Then add:
+
+```export ANDROID_HOME="/Users/{USERNAME}/Library/Android/sdk"```
+```export PATH=$ANDROID_HOME/platform-tools:$PATH```
+
+Finally, run:
+
+```$ source ~/.bash_profile``` or ```$ source ~/.zshenv```
+
+### Java JDK 8
+
+If you do not have it installed, you can download it from [oracle.com](https://www.oracle.com/java/technologies/downloads/#jdk19-mac)
+
+Don't forget to add the JAVA_HOME environment variable:
+
+For bash:
+
+```$ nano ~/.bash_profile```
+
+For zsh:
+
+```$ nano ~/.zshenv```
+
+Then add the following lines:
+
+```export JAVA_HOME="/Library/Java/JavaVirtualMachines/{PACKAGE}/Contents/Home"```
+
+```export PATH=$JAVA_HOME/bin:$PATH```
+
+Finally, run:
+
+```$ source ~/.bash_profile``` or ```$ source ~/.zshenv```
+
+## Automatic Installation
+Run:
+
+```$ sh install.sh```
+
+## Quickstart Installation
+
+Install Python 3 (MacOS brings Python 2 as system default):
+
+```$ brew install python3```
+
+Edit bash_profile file to execute everything with the newest Python version:
+
+for bash:
+
+```$ nano ~/.bash_profile```
+
+for zsh:
+
+```$ nano ~/.zshenv```
+
+Add the following line (kill the terminal to save the bash changes):
+
+```alias python=python3```
+
+PIP installation (needs Python 3):
+
+```$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py```
+
+```$ python get-pip.py```
+
+Open core_files folder:
+
+```$ cd python-automation/core_files```
+
+Install virtualenv package:
+
+```$ pip install virtualenv```
+
+Create virtual environment inside core_files folder:
+
+```$ virtualenv automation_virtualenv```
+
+Activate the virtual environment:
+
+```$ source automation_virtualenv/bin/activate```
+
+Install project dependencies (from core_files folder):
+
+```$ pip install -r requirements.txt```
+
+Install node to then install Appium:
+
+```$ brew install node```
+
+Install Appium:
+
+```$ npm install -g appium```
+
+Install appium-doctor, to install Appium dependecies:
+
+```$ npm install -g appium-doctor```
+
+Then run:
+
+```$ appium-doctor```
+
+After all Appium dependecies properly set up, you should be ready to go to [Run Automation](#run-automation) section.
+
+## Detailed Installation
 ### Python Setup
 
 First, you'll need Python 3 to use this project. You can get it easily with brew:
@@ -165,7 +280,7 @@ ELEMENT_NAME = Element.type(
 )
 ```
 
-## Run Automation
+## Run Automation Locally
 All devices' names should be configured on: [device_config.json](core_files/resources/device_config.json).
 
 [Python Virtual Environment](#setup-virtual-env) is mandatory to run the code, don't miss this configuration.
@@ -173,16 +288,74 @@ All devices' names should be configured on: [device_config.json](core_files/reso
 ### Run the automation code
 Firstly, make sure you're on `core_files` folder. Then run:
 
-`$ python runner.py --d deviceName1,deviceName2`
+`$ python runner.py --d name1,name2`
 
 If you want to run Web Automation:
 
-`$ python runner.py --d deviceName1,deviceName2 --web`
+`$ python runner.py --d name1,name2 --web`
 
 ### Tagging expression
 If you want run the automation of a specific tag, then run:
 
-`$ python runner.py --d deviceName1,deviceName2 --tag automation,ios`
+`$ python runner.py --d name1,name2 --tag automation,ios`
+
+## Run Automation on SauceLabs
+Firstly, make sure that your SauceLabs credentials (username and accessKey) are properly set on [app_config.yaml](core_files/resources/app_config.yaml)
+
+```
+Appium:
+  port: 4273
+  systemPort: 8200
+  username: sauce_labs_username
+  accessKey: SAUCE-LABS-ACCESS-KEY
+```
+
+All devices' names should be configured on: [device_config.json](core_files/resources/device_config.json).
+
+We have the setup for some mobile devices:
+
+```
+    {
+      "name": "AnyiPhone11",
+      "deviceName": "iPhone 11.*",
+      "platformName": "ios",
+      "automationName": "XCuiTest",
+      "platformVersion": "14"
+    },
+```
+
+and for some Desktop Browsers:
+
+```
+    {
+      "name": "ChromeLinux",
+      "platformName": "web",
+      "platform": "Linux",
+      "browserName": "chrome",
+      "version": "latest"
+    },
+```
+
+### Upload your application to SauceLabs File Storage
+You need to upload your application on SauceLabs File Storage to run the tests on the proper build. The filename should match the filename used on [app_config.yaml](core_files/resources/app_config.yaml).
+
+To upload, run:
+```
+curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+--request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+--form 'payload=@"PATH/OF/YOUR/FILE.apk"' \
+--form 'name="name_of__your_file.apk"' \
+--form 'description="An awesome description"'
+```
+
+### Run the automation code
+Firstly, make sure you're on `core_files` folder. Then run:
+
+`$ python runner.py --d name1,name2 --saucelabs`
+
+If you want to run Web Automation:
+
+`$ python runner.py --d name1,name2 --web --saucelabs`
 
 ## Continuous Integration
 
@@ -211,43 +384,22 @@ During the tests, there are some situations that we need to have some pre-define
 
 For example:
 - Test how the app presents the X screen without Y section;
-- Test how the app presents the Z tab without something happening.
+- Test how the app presents the Z tab without something happening;
+- Changing the test user entitlements.
 
-To solve this problem, we're using a mock server solution. This project uses the [Flask](https://flask.palletsprojects.com/en/1.1.x/) package as proxy tool that save all data for the first time and then uses the stored data for the next requests.
+To solve this problem, we're using a mock server solution. This project uses the BaseHTTPRequestHandler library as proxy. Basically, this solution emulates a Mock Server at localhost. The endpoint that we want to mock will be configured inside [`endpoints.py`](core_files/support/constants/mocks/endpoints.py).
 
-There is an example explaining how the test automation interact with the mock server solution and the app data:
+We can configure more than one BASE_URL and configure them separately.
 
-![Mock server diagram](doc/images/mockserver_diagram.png)
+To trigger the different endpoints, you should set the proper scenario tag and match it at [`environment.py`](core_files/features/environment.py).
 
-We can configure the URL that the mock server will use to collect the data on [`app_config.yaml`](core_files/resources/app_config.yaml) by editting the `forwardToServer` variable.
+This solution expects to have all mock data used by Mock Server inside [`mocks`](core_files/support/constants/mocks) folder. The name of the JSON file should be the same of the `API_ENDPOINT` environment variable.
 
-All data will be stored on [`server_mock`](core_files/server-mock) folder.
+By default, the Mock Server is configured to run on http://127.0.0.1:53209 but you can change this configuration at [`app_config.yaml`](core_files/resources/app_config.yaml).
 
-The automation project run the mock server once started, and then, the Application will start using the stored data. It's necessary to map the API endpoint remotely to the mock server URL: http://127.0.0.1:8082 or change the Application API to request all data to mock server's URL.
+### For mobile apps
 
-Each test scenario assigned to the test automation can have a mock server environment to run. The mock server solution has the ability to handle mock server environments by variants. The environments are used to manage different data in different test environments.
-
-Every new data stored on [`server_mock`](core_files/server-mock) will have the following format as default:
-
-```GET.http```
-
-To create a new version of this specific request, we can copy/paste this file and rename as following:
-
-```GET(ENV_VARIABLE).http```
-
-In this case, the `ENV_VARIABLE` is the name of the mock server environment that will be set on the test scenarios.
-
-There is an example of the mock server environment assignment:
-
-```gherkin
-    @automation @default
-    Scenario: App displays Matches header components
-        Given the app displays the "Matches" screen
-        Then the app should display the "Matches" label
-            And the app should display the "Live Now" tab
-            And the app should display the "Following" tab
-            And the app should display the "All Matches" tab
-```
+To have success using the Mock Server on mobile apps, you should set the device's proxy configuration to use the computer IP. It should be easily done by configuring Charles Proxy. After that, the desired endpoint should be redirected (Map Remote) to http://127.0.0.1:53209. So the application will get the mock data.
 
 # Get Started
 
@@ -490,3 +642,45 @@ To finish the page creation, we should configure the [__init__.py](/core_files/p
 - Carthage:
 ```brew install carthage```
 - Appium setup for Real Devices: http://appium.io/docs/en/drivers/ios-xcuitest-real-devices/
+
+## Tag Counter Reporter
+
+Tag Counter Reporter provides a way to count how many scenarios tagged as @Automation, @Automation_TBD and @Manual tags we have in a Feature file.
+
+To execute:
+
+- For all feature files:
+```$ python tag_count.py --all```
+
+- For a specific feature file:
+```$ python tag_count.py --f Test.feature```
+
+# SauceLabs Build Uploader
+
+There is a Python script to help us upload the application files to SauceLabs file storage on [core_files/support/saucelabs/upload_apps.py](upload_apps.py).
+
+The SauceLabs credentials should be baked in the environment. To make that happen, run the following commands:
+
+- For username:
+```$ export $SAUCE_USERNAME="your_username"```
+
+- For access key:
+```$ export $SAUCE_ACCESS_KEY="your_access_key"```
+
+To run the uploader, make sure that you're in the correct folder.
+
+- For Android builds, run:
+```$ python upload_apps.py --p android --n prefix```
+
+- For iOS builds, run:
+```$ python upload_apps.py --p ios --n prefix```
+
+The N flag is used to specify the prefix for the application name inside the SauceLabs file storage. You need to make sure that its name is the same as the application name in the [core_files/resources/apps](apps) folder and [core_files/resources/app_config.yml](app_config.yml) file.
+
+By default, this script uploads the builds from [core_files/resources/apps](apps) folder, if you want to specify a custom path, use the following:
+
+```$ python upload_apps.py --p ios --l /Users/username/Desktop/ios.ipa```
+
+In case of questions about the uploader script, run:
+
+```$ python upload_apps.py --help```

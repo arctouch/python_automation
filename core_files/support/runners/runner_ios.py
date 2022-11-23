@@ -32,7 +32,6 @@ class RunnerIOS(MobileRunnerBase):
 
     def start(self):
         super().start()
-        self._driver.activate_app(self.app_id)
 
     def supports_scenario(self, scenario):
         return "Automation" in scenario.tags or "AutomationIOS" in scenario.tags

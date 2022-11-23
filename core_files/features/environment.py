@@ -17,19 +17,18 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 # SOFTWARE.
+from distutils import util
 import json
 import os
-import shlex
-import signal
-import subprocess
-from os.path import join
+from unittest.mock import patch
 
 from behave import fixture, use_fixture
 from behave.log_capture import capture
 
 from support.capabilities import fetch_device_info
-from support.config.application import APPLICATION_CONFIG
+from support.config.application import APPIUM_CONFIG, APPLICATION_CONFIG
 from support.config.application import MOCK_SERVER_CONFIG
+
 from support.model.user import User
 from support.reporters.junit import JUnitReporter
 # -- FILE: features/environment.py
@@ -37,6 +36,8 @@ from support.reporters.junit import JUnitReporter
 # USE: behave -D BEHAVE_DEBUG_ON_ERROR=yes     (to enable  debug-on-error)
 # USE: behave -D BEHAVE_DEBUG_ON_ERROR=no      (to disable debug-on-error)
 from support.runners.runner import runner_for
+from support.server_mock.mock_server import MockServerRequestHandler
+from support.constants.mocks.endpoints import PATHS
 
 BEHAVE_DEBUG_ON_ERROR = False
 APPIUM_DEFAULT_PORT = 4723
@@ -53,6 +54,16 @@ def valid_user(context, *args, **kwargs):
         password="secret_sauce"
     )
     return context.user
+
+
+@fixture
+def setup_mock_responses(context, *args, **kwargs):
+    endpoint = os.environ['API_ENDPOINT']
+    path = PATHS[endpoint]['PATH']
+    mock_config_url = 'http://localhost:{port}/{path}'.format(port=context.port, path=path)
+
+    with patch.dict('support.constants.mocks.endpoints.__dict__', {PATHS[endpoint]['URL']: mock_config_url}):
+        return
 
 
 def _setup_debug_on_error(userdata):
@@ -72,6 +83,13 @@ def before_all(context):
     print("BEFORE_ALL")
 
     TASK_ID = int(os.environ['TASK_ID']) if 'TASK_ID' in os.environ else 0
+
+    try:
+        SAUCE_LABS = bool(util.strtobool(os.environ['SAUCE_LABS']))
+    except:
+        SAUCE_LABS = False
+
+    context.is_sauce_labs = True if bool(util.strtobool(os.environ['SAUCE_LABS'])) else False
 
     _setup_debug_on_error(context.config.userdata)
     """Start the appium client and set some env variables"""
@@ -99,7 +117,14 @@ def before_all(context):
         }
     }
 
-    _start_mock_server(context, TASK_ID)
+    if SAUCE_LABS:
+        sauce_caps = {
+            "username": APPIUM_CONFIG['username'],
+            "accessKey": APPIUM_CONFIG['accessKey']
+        }
+        system_capabilities.update(sauce_caps)
+
+    context = _start_mock_server(context, MOCK_SERVER_CONFIG)
 
     print('\n------ SETTING UP AUTOMATION ------\n')
     context.runner = runner_for(platform=context.platform, device=device_info, app=APPLICATION_CONFIG,
@@ -113,46 +138,23 @@ def before_all(context):
     print('\n------ STARTING TESTS ------\n')
 
 
-def _start_mock_server(context, task_id=0, server_info=MOCK_SERVER_CONFIG):
+def _start_mock_server(context, server_info):
     host = server_info['host']
-    port = server_info['port'] + task_id
+    context.port = server_info['port']
+    context = MockServerRequestHandler.start_mock_server(context, host, context.port)
 
     print(f'\n------ STARTING MOCK SERVER ------\n')
 
-    if _check_server_running(host=host, port=port):
-        print(f'Existing server found (host={host} port={port})')
-        return
-
-    my_env: dict = {
-        'FLASK_APP': join(os.getcwd(), 'support/server_mock/server_mock.py'),
-        'FLASK_ENV': 'development',
-        'FLASK_DEBUG': '1'
-    }
-
-    if 'forwardToServer' in server_info:
-        my_env['MOCK_FORWARD_TO_SERVER'] = server_info['forwardToServer']
-
-        if server_info['forwardRequests']:
-            my_env['MOCK_FORWARD_REQUESTS'] = '1'
-        if server_info['recordResponses']:
-            my_env['MOCK_RECORD_RESPONSES'] = '1'
-
-    if server_info['missingVariantFallback']:
-        my_env['MOCK_MISSING_VARIANT_FALLBACK'] = '1'
-
-    command = f'automation_virtualenv/bin/python -m flask run --host={host} --port={port}'
-    print(f'{command}')
-
-    context.mock_server_process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE,
-                                                   stderr=subprocess.PIPE, env=my_env, preexec_fn=os.setsid)
-
-    context.add_cleanup(_stop_mock_server_if_needed, context)
+    if _check_server_running(host=host, port=context.port):
+        print(f'Existing server found (host={host} port={context.port})')
+    
+    return context
 
 
 def _stop_mock_server_if_needed(context):
-    if hasattr(context, 'mock_server_process'):
+    if hasattr(context, 'mock_server'):
         print(f'\n------ STOPPING MOCK SERVER ------\n')
-        os.killpg(os.getpgid(context.mock_server_process.pid), signal.SIGTERM)  #
+        MockServerRequestHandler.stop_serving()
 
 
 def _check_server_running(port, host='127.0.0.1'):
@@ -167,10 +169,14 @@ def _check_server_running(port, host='127.0.0.1'):
 @capture
 def after_all(context):
     print(f"AFTER_ALL :: Test execution complete ({context.device_name})")
+    _stop_mock_server_if_needed(context)
 
 
 def after_scenario(context, scenario):
     """Closes the app after each test"""
+    if context.is_sauce_labs:
+        context.runner.send_status(scenario.status)
+
     context.runner.stop()
 
 
@@ -182,9 +188,8 @@ def before_scenario(context, scenario):
     if "continue_on_error" in scenario.tags:
         scenario.continue_after_failed_step = True
 
-    if "continuation" not in scenario.tags:
-        context.runner.reset()
-
+    use_fixture(valid_user, context, timeout=10)
+    
     context.runner.start()
 
 
@@ -207,3 +212,6 @@ def before_step(context, step):
 def before_tag(context, tag):
     if tag == "valid_user":
         use_fixture(valid_user, context, timeout=10)
+    if tag == 'configuration':
+        os.environ['API_ENDPOINT'] = 'configuration'
+        use_fixture(setup_mock_responses, context, timeout=10)
