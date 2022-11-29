@@ -26,7 +26,7 @@
                     "headless": true
                 },
                 "web-mobile": {
-                    "address": "http://www.google.com",
+                    "address": "http://www.google.com"
                 }
             },
             "Appium": {
@@ -35,11 +35,7 @@
             },
             "MockServer": {
                 "host": "127.0.0.1",
-                "port": 8082,
-                "forwardRequests": true,
-                "recordResponses": true,
-                "missingVariantFallback": false,
-                "forwardToServer": "https://sample-server.com"
+                "port": 53209
             }
         }
     ],
@@ -306,11 +302,7 @@
             "examples": [
                 {
                     "host": "127.0.0.1",
-                    "port": 8082,
-                    "forwardRequests": false,
-                    "recordResponses": false,
-                    "missingVariantFallback": false,
-                    "forwardToServer": "https://sample-server.com"
+                    "port": 53209
                 }
             ],
             "additionalProperties": true,
@@ -330,50 +322,9 @@
                     "type": "integer",
                     "title": "The port schema",
                     "description": "An explanation about the purpose of this instance.",
-                    "default": 8082,
+                    "default": 53209,
                     "examples": [
-                        8082
-                    ]
-                },
-                "forwardRequests": {
-                    "$id": "#/properties/MockServer/properties/forwardRequests",
-                    "type": "boolean",
-                    "title": "The forwardRequests schema",
-                    "description": "If `true` any response not found in the file system will be forwarded to the address provided in `forwardToServer`. This parameter will be ignored if `forwardToServer` is not set.",
-                    "default": false,
-                    "examples": [
-                        true
-                    ]
-                },
-                "recordResponses": {
-                    "$id": "#/properties/MockServer/properties/recordResponses",
-                    "type": "boolean",
-                    "title": "The recordResponses schema",
-                    "description": "Persists responses from forwarded requests. Saved response will be served to subsequent requests. \n\nThis parameter will be ignored if `forwardRequests` set to `false` or `forwardToServer` is not set",
-                    "default": false,
-                    "examples": [
-                        true
-                    ]
-                },
-                "missingVariantFallback": {
-                    "$id": "#/properties/MockServer/properties/missingVariantFallback",
-                    "type": "boolean",
-                    "title": "The missingVariantFallback schema",
-                    "description": "If set to `true`, when response is not found for the active variant, a default response (with no variant associated) might be served instead if available.",
-                    "default": false,
-                    "examples": [
-                        true,
-                        false
-                    ]
-                },
-                "forwardToServer": {
-                    "$id": "#/properties/MockServer/properties/forwardToServer",
-                    "type": "string",
-                    "title": "The forwardToServer schema",
-                    "description": "Address of the server to which to forward requests if response is not found locally.",
-                    "default": "https://sample-server.com",
-                    "examples": [
-                        "https://sample-server.com"
+                        53209
                     ]
                 }
             }

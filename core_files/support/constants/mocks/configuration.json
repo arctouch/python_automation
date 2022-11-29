@@ -1,0 +1,198 @@
+{
+	"createAccountPasswordRequirements": [{
+		"description": "Modified content",
+		"regex": "^[^ ]{8,}$",
+		"type": "regex"
+	}, {
+		"description": "A lowercase letter",
+		"regex": "(?=.*?[a-z])",
+		"type": "regex"
+	}, {
+		"description": "An uppercase letter",
+		"regex": "(?=.*?[A-Z])",
+		"type": "regex"
+	}, {
+		"description": "A number",
+		"regex": "(?=.*?[0-9])",
+		"type": "regex"
+	}, {
+		"description": "A symbol",
+		"regex": "(?=.*?[#?!@$%^&*-])",
+		"type": "regex"
+	}, {
+		"description": "No parts of your email",
+		"type": "containsUsername"
+	}, {
+		"description": "Does not include your first name",
+		"type": "containsFirstName"
+	}, {
+		"description": "Does not include your last name",
+		"type": "containsLastName"
+	}],
+	"changePasswordRequirements": [{
+		"description": "At least 8 characters and no white spaces",
+		"regex": "^[^ ]{8,}$",
+		"type": "regex"
+	}, {
+		"description": "A lowercase letter",
+		"regex": "(?=.*?[a-z])",
+		"type": "regex"
+	}, {
+		"description": "An uppercase letter",
+		"regex": "(?=.*?[A-Z])",
+		"type": "regex"
+	}, {
+		"description": "A number",
+		"regex": "(?=.*?[0-9])",
+		"type": "regex"
+	}, {
+		"description": "A symbol",
+		"regex": "(?=.*?[#?!@$%^&*-])",
+		"type": "regex"
+	}, {
+		"description": "No parts of your email",
+		"type": "containsUsername"
+	}, {
+		"description": "Does not include your first name",
+		"type": "containsFirstName"
+	}, {
+		"description": "Does not include your last name",
+		"type": "containsLastName"
+	}, {
+		"description": "Your password cannot be any of your last 24 passwords",
+		"type": "informational"
+	}, {
+		"description": "At least 2 day(s) must have elapsed since you last changed your password",
+		"type": "informational"
+	}],
+	"appVersion": {
+		"android": {
+			"version": "0.0.1",
+			"required": false,
+			"minVersion": "0.0.0",
+			"forceVersion": "1.3.0"
+		},
+		"iOS": {
+			"version": "0.0.1",
+			"required": false,
+			"minVersion": "0.0.0",
+			"forceVersion": "1.3.0"
+		}
+	},
+	"errors": [{
+		"key": "OKTA_UNKOWN_ERROR",
+		"message": "An unknown error occurred.  Please try again.  If this continues to happen please contact the Customer Service Center."
+	}, {
+		"key": "LOGIN_TO_COMPLETE",
+		"message": "Your registration is almost complete, please login to activate your account."
+	}, {
+		"key": "NEED_ASSISTANCE",
+		"message": "If you need assistance logging in, please contact Medi-Cal Rx Customer Service Center at 800-977-2273"
+	}, {
+		"key": "COMMERCIAL_PASSWORD_RESET_SUCCESS_MESSAGE",
+		"message": "Your new password has been successfully created"
+	}, {
+		"key": "OKTA_WIDGET_PRIMARYAUTH_TITLE",
+		"message": "Please log in with your email address and password."
+	}, {
+		"key": "OKTA_WIDGET_ERROR_AUTH_LOCKEDOUT",
+		"message": "Your account is locked. Please call 800-977-2273 for assistance in unlocking your account."
+	}, {
+		"key": "OKTA_WIDGET_ERROR_USERNAME_REQUIRED",
+		"message": "Please enter email"
+	}, {
+		"key": "OKTA_WIDGET_ERROR_PASSWORD_REQUIRED",
+		"message": "Please enter password"
+	}, {
+		"key": "OKTA_WIDGET_ERRORS_E0000004",
+		"message": "The email address or password you have entered is invalid. Too many incorrect attempts will lock your account."
+	}, {
+		"key": "OKTA_WIDGET_ENROLL_CHOICES_DESCRIPTION_GENERIC",
+		"message": "Medi-Cal Rx requires multifactor authentication to add an additional layer of security when signing in to your account"
+	}, {
+		"key": "OKTA_WIDGET_MFA_EMAIL_SENT_DESCRIPTION",
+		"message": "'A verification code was sent to {0}. Check your email and enter the code below. If you did not receive the email, please check your Spam or Junk folder."
+	}, {
+		"key": "OKTA_WIDGET_REGISTER_ELIGIBILITY_ERROR",
+		"message": "Please verify the information you entered below is correct and try again. If you are still experiencing issues, contact Customer Service by calling the number on the back of your ID card."
+	}, {
+		"key": "OKTA_WIDGET_MAGELLAN_EMAIL_ERROR",
+		"message": "Please do not use your Magellan email ID to register into the portal. You can use any of your other email id."
+	}, {
+		"key": "OKTA_WIDGET_PASSWORD_INCLUDES_NAME_ERROR",
+		"message": "Your password doesn't meet requirement. Please do not use any form of the member's first or last name."
+	}, {
+		"key": "OKTA_WIDGET_FORGOT_EMAIL_OR_PASSWORD",
+		"message": "If you forgot your email or password please return to the member login to reset your password."
+	}, {
+		"key": "PASSWORD_CONTAINS_USERNAME",
+		"message": "Password should not contain any part of your username"
+	}, {
+		"key": "PASSWORD_CONTAINS_FIRSTNAME",
+		"message": "Password should not contain your firstname"
+	}, {
+		"key": "PASSWORD_CONTAINS_LASTNAME",
+		"message": "Password should not contain your lastname"
+	}, {
+		"key": "PASSWORD_VALIDATION_ERROR",
+		"message": "There was a problem validating your password. Please review the requirements and try again"
+	}, {
+		"key": "CHANGE_PASSWORD_VALIDATION_ERROR",
+		"message": "Please verify that all password requirements are met and try again. \n\nTip: Your password cannot be any of your last 24 passwords, and 2 days must have elapsed since your last password change."
+	}, {
+		"key": "OKTA_WIDGET_REGISTRATION_LOCKOUT",
+		"message": "You have attempted to register too many times. Please try again in 24 hours."
+	}, {
+		"key": "DELETE_ACCOUNT_INVALID_PASSWORD",
+		"message": "The password you have entered is invalid. Too many incorrect attempts will lock your account."
+	}],
+	"sessionDuration": "15",
+	"oktaAccountLink": "https://magellanhealthsso.oktapreview.com/home/oidc_client/0oabb7vg28fwHNxTV0h7/aln5z7uhkbM6y7bMy0g7",
+	"claimStatusMessages": {
+		"ready": {
+			"description": "Your prescription has been approved! You can now schedule a pick-up time with your pharmacy at your convenience. If you are enrolled in Magellan Rx Home Delivery, we already shipped your prescription and you will see it soon. If you have any questions about your prescription, talk to your pharmacist.",
+			"cta": "Talk to your pharmacist if you have any questions about your prescription."
+		},
+		"notReady": {
+			"description": "Your prescription is not ready for pick-up or delivery yet. No need to worry, we are working with your pharmacist to get your prescription ready for you. If you have any questions about your medication, talk to your pharmacist.",
+			"cta": "Talk to pharmacist for more information."
+		},
+		"underReview": {
+			"description": "Your prescription's Prior Authorization is under review. Prior Authorizations are designed to ensure you are getting the best treatment for your condition. Waiting for additional clinical information is a standard process for certain medications, and we will update you soon. If you haven't heard anything about your prescription, reach out to your doctor.",
+			"cta": "Please contact the number on the back of your pharmacy ID card."
+		},
+		"needsApproval": {
+			"description": "Your prescription requires a Prior Authorization to be submitted by your doctor. We encourage you to reach out to your doctor as soon as possible to start the Prior Authorization process.\n\nPrior Authorizations are designed to ensure you are getting the best treatment for your condition. This is a standard process for certain medications, and can typically take several days.",
+			"cta": "Talk to your prescriber to request a prior authorization."
+		},
+		"notCovered": {
+			"description": "It looks like this prescription isn't covered by your plan. Talk to your doctor to review your covered Rx list to see what alternative medications are available.",
+			"cta": "Please contact the number on the back of your pharmacy ID card or talk to your prescriber."
+		},
+		"quantityLimit": {
+			"description": "It looks like this prescription has exceeded the prescribed quantity limit covered by your plan. Talk to your doctor or pharmacist about quantity limits for your prescription.",
+			"cta": "Talk to your prescriber or pharmacist about quantity limits for your prescription"
+		}
+	},
+	"drugFilterLabels": {
+		"brand": {
+			"fieldLabel": "Rx name",
+			"choicesLabel": "Choose an Rx name"
+		},
+		"form": {
+			"fieldLabel": "Form",
+			"choicesLabel": "Choose a form"
+		},
+		"dosage": {
+			"fieldLabel": "Dosage",
+			"choicesLabel": "Choose a dosage"
+		},
+		"quantity": {
+			"fieldLabel": "Quantity",
+			"choicesLabel": "Choose a quantity"
+		}
+	},
+	"authentication": {
+		"discovery_uri": "https://magellanhealthsso.oktapreview.com"
+	}
+}

@@ -19,6 +19,69 @@
       "browserName": "Safari"
     },
     {
+      "name": "AnyiPhone11",
+      "deviceName": "iPhone 11.*",
+      "platformName": "ios",
+      "automationName": "XCuiTest",
+      "platformVersion": "14"
+    },
+    {
+      "name": "AnyGalaxy",
+      "deviceName": "Samsung Galaxy S2.*",
+      "platformName": "android",
+      "automationName": "UiAutomator2",
+      "platformVersion": "11"
+    },
+    {
+      "name": "ChromeLinux",
+      "platformName": "web",
+      "platform": "Linux",
+      "browserName": "chrome",
+      "version": "latest"
+    },
+    {
+      "name": "FirefoxLinux",
+      "platformName": "web",
+      "platform": "Linux",
+      "browserName": "firefox",
+      "version": "latest"
+    },
+    {
+      "name": "ChromeMac",
+      "platformName": "web",
+      "platform": "macOS 12.00",
+      "browserName": "Chrome",
+      "browserVersion": "latest"
+    },
+    {
+      "name": "FirefoxMac",
+      "platformName": "web",
+      "platform": "macOS 12.00",
+      "browserName": "firefox",
+      "browserVersion": "latest"
+    },
+    {
+      "name": "ChromeWindows",
+      "platformName": "web",
+      "platform": "Windows 10",
+      "browserName": "chrome",
+      "version": "latest"
+    },
+    {
+      "name": "FirefoxWindows",
+      "platformName": "web",
+      "platform": "Windows 10",
+      "browserName": "firefox",
+      "version": "latest"
+    },
+    {
+      "name": "Edge",
+      "platformName": "web",
+      "platform": "Windows 10",
+      "browserName": "MicrosoftEdge",
+      "version": "latest"
+    },
+    {
       "name": "chrome-mac",
       "platformName": "web",
       "browserName": "chrome",

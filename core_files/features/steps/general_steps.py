@@ -25,18 +25,7 @@ from support.locators import Element
 from support.pages.page_factory import get_page_by_name
 
 
-@then('the app should display the "{field_name}" field')
-def then_app_display_field(context, field_name):
-    element = Element.input(field_name)
-    context.page.element_is_displayed(element)
-
-
-@then('the app should display the "{button_name}" button')
-def then_app_display_button(context, button_name):
-    element = Element.button(button_name)
-    context.page.element_is_displayed(element)
-
-
+# Given steps
 @given('the app displays the "{page_name}" screen')
 def given_app_displays_page(context, page_name):
     page = get_page_by_name(context, page_name)
@@ -87,7 +76,6 @@ def then_app_display_text(context, label):
     then_app_display_label(context, label)
 
 
-# Then steps
 @then('the app should display the "{prompt_name}" prompt')
 def then_app_display_prompt(context, prompt_name):
     assert context.page.element_is_displayed(Element.prompt(prompt_name))
@@ -103,3 +91,15 @@ def assert_the_app_displays_page(context, page_name):
     page = get_page_by_name(context, page_name)
     assert page.wait_to_be_current_page(), "Page '{}' was not displayed".format(page_name)
     context.page = page
+
+
+@then('the app should display the "{field_name}" field')
+def then_app_display_field(context, field_name):
+    element = Element.input(field_name)
+    context.page.element_is_displayed(element)
+
+
+@then('the app should display the "{button_name}" button')
+def then_app_display_button(context, button_name):
+    element = Element.button(button_name)
+    context.page.element_is_displayed(element)

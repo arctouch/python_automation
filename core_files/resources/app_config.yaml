@@ -1,12 +1,12 @@
 AppConfiguration:
   android:
-    app: /resources/apps/android_sample.apk
+    app: android_sample.apk
     automationName: UIAutomator2
     appPackage: com.swaglabsmobileapp
     appWaitActivity: com.swaglabsmobileapp.MainActivity
 
   ios:
-    app: /resources/apps/ios_sample.app
+    app: ios_sample.ipa
     automationName: XCUITest
     xcodeOrgId: 5HMJW6N276
     xcodeSigningId: iPhone Developer
@@ -22,11 +22,9 @@ AppConfiguration:
 Appium:
   port: 4273
   systemPort: 8200
+  username: ${SAUCE_USERNAME}
+  accessKey: ${SAUCE_ACCESS_KEY}
 
 MockServer:
   host: 127.0.0.1
-  port: 8082
-  forwardRequests: false
-  recordResponses: false
-  missingVariantFallback: false
-  forwardToServer: https://sample-server.com
+  port: 53209
